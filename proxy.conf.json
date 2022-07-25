@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+      "target": "http://eda-source:4003",
+      "secure": false,
+      "logLevel":"info"
+    }
+}
