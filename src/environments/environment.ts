@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  hmr: false
+  hmr: false,
+  api: 'http://localhost:4003/',
+  ws: 'ws://localhost:4002/'
+
 };
 
 /*

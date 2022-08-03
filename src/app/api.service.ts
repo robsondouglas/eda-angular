@@ -7,12 +7,17 @@ import * as socket from 'socket.io-client';
   providedIn: 'root'
 })
 export class ApiService {
+  private url = {
+    ws : 'ws://localhost:4002/',
+    api: '/api/'
+  }
 
   private totalColorUpdated: Subject<{id:string, qtd:number}>; 
   private totalMinuteUpdated: Subject<{id:string, qtd:number}>; 
 
   constructor(private http: HttpClient){
-    let ws = socket.io('ws://localhost:4002');
+    
+    let ws = socket.io(this.url.ws);
     this.totalColorUpdated  = new Subject<{id:string, qtd:number}>();
     this.totalMinuteUpdated = new Subject<{id:string, qtd:number}>();
 
@@ -34,7 +39,7 @@ export class ApiService {
   }
 
   listarTotais(){
-    return this.http.get('http://localhost:4003/votes')
+    return this.http.get(`${this.url.api}votes`)
       .pipe( 
          map((itms:any[]) => itms.map( (itm:any) => ({
            id: itm.key, 
@@ -49,7 +54,7 @@ export class ApiService {
   }
 
   listarTotaisMinuto(){
-    return this.http.get('http://localhost:4003/votesminutes')
+    return this.http.get(`${this.url.api}votesminutes`)
       .pipe( 
          map((itms:any[]) => itms.map( (itm:any) => ({
            id: itm.key, 
@@ -64,7 +69,7 @@ export class ApiService {
   }
 
   listarOpcoes (){
-      return this.http.get('http://localhost:4003/opcoes')
+      return this.http.get(`${this.url.api}opcoes`)
       .pipe( 
          map((itms:any[]) => itms.map( (itm:any) => ({
            id: itm.id, 
@@ -86,7 +91,7 @@ export class ApiService {
     const httpHeader = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
     };
-    return this.http.post('http://localhost:4003/vote', { id: id })
+    return this.http.post(`${this.url.api}vote`, { id: id })
     .pipe( 
       retry({count: 3, delay: 500}),
       catchError((err:any, res:any)=>{console.log('Erro', err); return res}),

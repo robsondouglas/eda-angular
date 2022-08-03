@@ -1,6 +1,13 @@
 {
     "/api/*": {
-      "target": "http://eda-source:4003",
+      "target": "http://eda-source:4003/",
+      "pathRewrite": { "^/api/": "" },
+      "secure": false,
+      "logLevel":"info"
+    },
+    "/ws/*": {
+      "target": "ws://eda-source:4002/",
+      "pathRewrite": { "^/ws/": "" },
       "secure": false,
       "logLevel":"info"
     }
