@@ -5,9 +5,9 @@
       "secure": false,
       "logLevel":"info"
     },
-    "/ws/*": {
+    "/socket.io/*": {
       "target": "ws://eda-source:4002/",
-      "pathRewrite": { "^/ws/": "" },
+      //"pathRewrite": { "^/ws/": "" },
       "secure": false,
       "logLevel":"info"
     }

@@ -16,8 +16,7 @@ export class ApiService {
   private totalMinuteUpdated: Subject<{id:string, qtd:number}>; 
 
   constructor(private http: HttpClient){
-    
-    let ws = socket.io(this.url.ws);
+    let ws = socket.io('/socket.io/');
     this.totalColorUpdated  = new Subject<{id:string, qtd:number}>();
     this.totalMinuteUpdated = new Subject<{id:string, qtd:number}>();
 

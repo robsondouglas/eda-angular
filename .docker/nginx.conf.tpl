@@ -7,7 +7,7 @@ server {
         proxy_pass      ${API_URL};
     }
 
-    location /ws/ {
+    location /socket.io {
         proxy_pass      ${WS_URL};
     }
 
