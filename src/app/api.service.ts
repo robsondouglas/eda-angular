@@ -8,7 +8,7 @@ import * as socket from 'socket.io-client';
 })
 export class ApiService {
   private url = {
-    ws : 'ws://localhost:4002/',
+    ws : '/ws/',
     api: '/api/'
   }
 
