@@ -16,6 +16,6 @@ FROM nginx:1.23.1
 COPY --from=build /app/dist /usr/share/nginx/html
 ENV WS_URL=http://localhost:4002/
 ENV API_URL=http://localhost:4003/
-COPY nginx.conf.tpl . 
+COPY .docker/nginx.conf.tpl . 
 ENTRYPOINT ["/bin/sh", "-c", "envsubst < nginx.conf.tpl > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
 EXPOSE 80
