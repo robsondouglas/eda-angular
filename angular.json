@@ -100,7 +100,7 @@
               "browserTarget": "front-video:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development" 
         },
         
         "extract-i18n": {
