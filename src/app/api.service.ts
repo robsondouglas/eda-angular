@@ -8,7 +8,7 @@ import * as socket from 'socket.io-client';
 })
 export class ApiService {
   private url = {
-    ws : '/ws/',
+    ws : '/',
     api: '/api/'
   }
 
@@ -16,7 +16,7 @@ export class ApiService {
   private totalMinuteUpdated: Subject<{id:string, qtd:number}>; 
 
   constructor(private http: HttpClient){
-    let ws = socket.io('/socket.io/');
+    let ws = socket.io(this.url.ws);
     this.totalColorUpdated  = new Subject<{id:string, qtd:number}>();
     this.totalMinuteUpdated = new Subject<{id:string, qtd:number}>();
 
@@ -30,7 +30,6 @@ export class ApiService {
 
     ws.on('QTD_CHANGED', (res)=>{
       const itm = JSON.parse(res);
-      console.log('QTD_CHANGED', itm);
       this.totalColorUpdated.next(itm.totalCor);
       this.totalMinuteUpdated.next(itm.totalMinutoCor);
     });

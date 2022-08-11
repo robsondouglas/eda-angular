@@ -1,4 +1,4 @@
-FROM node:17.9.1-alpine3.15 as angular
+FROM node:lts-alpine3.16 as angular
 RUN npm i --location=global @angular/cli@14.1.0
 
 FROM angular as init

@@ -21,7 +21,7 @@ export class AppComponent {
     itm.loading = true;
       this.svc.vote(itm.id)
       .pipe( finalize(()=>itm.loading = false) )
-      .subscribe(()=>console.log('OK'));
+      .subscribe(()=>{});
   }
 }
 
