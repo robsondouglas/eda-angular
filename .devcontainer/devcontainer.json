@@ -1,8 +1,8 @@
 {
     "name": "FRONT-ANGULAR",
-    "image": "node:17",
+    "image": "node:18-alpine",
     "postCreateCommand": "npm i -g @angular/cli@14.1.0 && npm i",
     "extensions": ["Angular.ng-template"],
     "forwardPorts": [4200, 49153],
-    "runArgs": ["--net", "devcontainer_eda-sandbox"]
+    "runArgs": ["--net", "eda_devcontainer_eda-sandbox"]
 }

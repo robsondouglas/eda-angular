@@ -73,6 +73,7 @@ export class ApiService {
            id: itm.id, 
            label: itm.nome,
            rgb: itm.cor,
+           src: itm.src
          }) as IOpcao)),
         retry(2),
         catchError(err=>{
@@ -82,18 +83,38 @@ export class ApiService {
       )
   }
 
+  getLayout(){
+    return this.http.get(`${this.url.api}ux`)
+      .pipe( 
+        retry(2),
+        catchError(err=>{
+          console.log('Erro ao carregar as definições de layout');
+          return err;
+        }) 
+      )
+  }
+  
+  getCaptcha(){
+    return this.http.get(`${this.url.api}captcha`)
+      .pipe( 
+        retry(2),
+        catchError(err=>{
+          console.log('Erro ao carregar as definições de layout');
+          return err;
+        }) 
+      )
+  }
+
   OnTotalColorChanged() { return this.totalColorUpdated.asObservable() }
   OnTotalMinuteChanged() { return this.totalMinuteUpdated.asObservable() }
 
-  vote(id){
+  vote(itm: {id:string, code?:string, hash?:string}){
     const httpHeader = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
     };
-    return this.http.post(`${this.url.api}vote`, { id: id })
-    .pipe( 
-      retry({count: 3, delay: 500}),
-      catchError((err:any, res:any)=>{console.log('Erro', err); return res}),
-    );
+
+    return this.http.post(`${this.url.api}vote`, itm)
+    
   }
 }
 
@@ -101,10 +122,24 @@ export interface IOpcao {
   id:string
   label:string
   rgb:string
+  src:string
   loading: boolean
 }
 
 export interface IQtd{
   id: string,
   qtd: number
+}
+
+export interface ICaptcha
+{
+  hash:string,
+  img:string
+}
+
+export interface IUX{
+  captcha: boolean,
+  waitNext: number,
+  navigateToResult: false,
+  layout: 'double' | 'single'             
 }

@@ -321,33 +321,49 @@
 <div class="toolbar" role="banner">
   <img
     width="40"
-    alt="Angular Logo"
+    alt="Voto Logo"
     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
   />
-  <span>Welcome</span>
+  <span>Votação</span>
     <div class="spacer"></div>
     
 </div>
 
-<div class="content" role="main">
+<div class="content" role="main" *ngIf="ux">
 
-  <div class="grid-container grid-row flex-wrap">
-    <button *ngFor="let opc of opcoes" class="card card-small btn" (click)="vote(opc)" [disabled]="opc.loading" [style]="{'background-color': opc.loading ? opc.rgb + '55' : opc.rgb}">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>{{opc.label}}</span>
-    </button>
+  <div class="grid-container grid-row flex-wrap" *ngIf="showNav(Telas.voto)">
+    <div *ngFor="let opc of opcoes" class="avatar">
+      <img [src]="opc.src" />
+      <button class="btn" (click)="vote(opc)" [disabled]="waiting>0 || loading" [style]="{'background-color': opc.loading ? opc.rgb + '55' : opc.rgb}">
+        <span *ngIf="waiting==0">{{opc.label}}</span>
+        <span *ngIf="waiting!=0">{{waiting}} seg{{waiting>1?'s':''}}</span>
+      </button>
+    </div>
   </div>
-    
-  <div class="grid-container grid-row" style="justify-content: space-between;">
-    <div stle="grid-col" style="width:20%;">
-      <app-kpi style="margin-top: 40px" ></app-kpi>
-    </div>
-    <div stle="grid-col" style="width:50%;">
-      <app-line></app-line>
-    </div>  
-    <div stle="grid-col" style="width:30%;">
-      <app-pie ></app-pie>
-    </div>
+  
+  <mat-card color="accent" style="width: 100%" *ngIf="showNav(Telas.resultado)">
+    <mat-card-subtitle>
+      <app-kpi></app-kpi> 
+    </mat-card-subtitle>
+    <mat-card-title></mat-card-title>
+    <mat-card-content>
+      <div class="grid-container grid-row">
+        <app-line></app-line>
+        <app-pie ></app-pie>
+      </div>
+        
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+
+  
+  <div style="display:grid; place-content: center;" *ngIf="showNav(Telas.resultado) && ux.layout === 'single'">
+    <button class="btn" style="width: 200px; padding: 10px; background-color: #99aa99; color: #444; cursor:pointer" (click)="back()" [disabled]="waiting!=0" >
+      <span *ngIf="waiting==0">Retornar e votar novamente</span>
+      <span *ngIf="waiting!=0">Aguarde {{waiting}} segundo{{waiting>1?'s':''}}</span>
+    </button>    
   </div>
 </div>
 
