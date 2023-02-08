@@ -12,7 +12,7 @@ COPY . .
 FROM source as build
 RUN npm run build
 
-FROM nginx:1.23.1 
+FROM nginx:1.23.3 
 COPY --from=build /app/dist /usr/share/nginx/html
 ENV WS_URL=http://localhost:4002/
 ENV API_URL=http://localhost:4003/

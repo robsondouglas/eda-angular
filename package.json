@@ -6,7 +6,7 @@
     "start-old": "ng serve --proxy-config proxy.conf.json --live-reload",
     "start": "ng serve --proxy-config proxy.conf.json --poll 200 --host 0.0.0.0 --disable-host-check",
     "hmr": "ng serve --configuration hmr",
-    "build": "ng build --prod",
+    "build": "ng build",
     "watch": "ng serve --watch --configuration development",
     "test": "ng test"
   },
